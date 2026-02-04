@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Valentine</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* BODY */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      font-size: 35px;
+      color: black;
+      overflow: hidden;
+      cursor: url("heart.png"), auto;
+      background: url("background.jpg") center/cover no-repeat fixed;
+    }
+
+    /* SLIDES */
+    .slide {
+      display: none;
+      height: 100vh;
+      width: 100vw;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 30px;
+      background: transparent;
+    }
+
+    .slide.active {
+      display: flex;
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 50px;
+      margin: 10px 0;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+    }
+
+    p {
+      font-family: 'Poppins', sans-serif;
+      font-size: 20px;
+      margin: 8px 0;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.6);
+    }
+
+    button {
+      font-family: 'Poppins', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      padding: 12px 24px;
+      margin: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* PHOTOS */
+    .photos {
+      position: relative;
+      width: 100%;
+      height: 60vh;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    .photo {
+      position: absolute;
+      min-width: 350px;
+      max-width: 450px;
+      min-height: 500px;
+	max-height: 700px;
+      border-radius: 12px;
+      opacity: 0;
+      transition: all 0.8s ease;
+    }
+
+    .photo.show {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+
+    .photo.hide {
+      opacity: 0;
+      transform: scale(0.5) rotate(20deg);
+    }
+
+    /* HEARTS */
+    .heart {
+      position: fixed;
+      top: -10px;
+      animation: fall linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateX(0) translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateX(var(--sway, 20px)) translateY(50vh) rotate(180deg);
+      }
+      100% {
+        transform: translateX(0) translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* TEDDY */
+    #teddy {
+      width: 260px;
+      margin-top: 20px;
+      display: none;
+      animation: pop 1.2s ease forwards;
+    }
+
+    @keyframes pop {
+      from { opacity: 0; transform: scale(0.5); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* NO BUTTON */
+    #noBtn {
+      position: absolute;
+    }
+
+    /* SECOND-LAST SLIDE TEXT */
+    #secondLastText {
+      margin-top: 20px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: #800000;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+
+<body>
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- SLIDES -->
+<div class="slide active">
+  <h1>Manya 💕</h1>
+  <p>It’s been wonderful knowing you, and truly a privilege having you in my life for the past many months.</p>
+  <button onclick="playMusic(); nextSlide()">Next</button>
+</div>
+
+<div class="slide">
+  <h1>Some of my favorite moments 📸</h1>
+  <div class="photos">
+    <img src="photo1.jpg" class="photo">
+    <img src="photo2.jpg" class="photo">
+    <img src="photo3.jpg" class="photo">
+  </div>
+  <button onclick="nextSlide()">Next ➜</button>
+</div>
+
+<div class="slide">
+  <h1>We grew together 🌱</h1>
+  <p>We grew together more than I ever thought.</p>
+  <div class="photos">
+    <img src="photo4.jpg" class="photo">
+    <img src="photo5.jpg" class="photo">
+    <img src="photo6.jpg" class="photo">
+  </div>
+  <button onclick="nextSlide()">Next ➜</button>
+</div>
+
+<div class="slide">
+  <h1>About you 🥐</h1>
+  <p>You are truly convoluted, layered as a croissant.</p>
+  <div class="photos">
+    <img src="photo7.jpg" class="photo">
+    <img src="photo8.jpg" class="photo">
+    <img src="photo9.jpg" class="photo">
+  </div>
+  <button onclick="nextSlide()">Next ➜</button>
+</div>
+
+<div class="slide">
+  <h1>And sometimes 🌶️</h1>
+  <p>Teekha as a pani puri too.</p>
+  <div class="photos">
+    <img src="photo10.jpg" class="photo">
+    <img src="photo11.jpg" class="photo">
+    <img src="photo12.jpg" class="photo">
+  </div>
+  <button onclick="nextSlide()">Next ➜</button>
+</div>
+
+<div class="slide">
+  <h1>Looking ahead ☕🏔️</h1>
+  <p>And I want to have a life full of memories and stories to tell while we sip tea on our hill house.</p>
+  <div class="photos">
+    <img src="photo13.jpg" class="photo">
+    <img src="photo14.jpg" class="photo">
+  </div>
+  <button onclick="nextSlide()">Next ➜</button>
+  <div id="secondLastText">No Button bhi darta hai tujhse</div>
+</div>
+
+<div class="slide">
+  <h1>Will you be my Valentine this year? <br>and for the rest of my life 💖</h1>
+  <button onclick="yesClicked()">YES</button>
+  <button id="noBtn">NO 🙈</button>
+  <img src="teddies.gif" id="teddy">
+</div>
+
+<div class="slide">
+  <h1>Always,</h1>
+  <h1>Adarsh ❤️</h1>
+</div>
+
+<script>
+let currentSlide = 0;
+const slides = document.querySelectorAll(".slide");
+
+// ---- SLIDE NAVIGATION ----
+function nextSlide() {
+  hidePhotos(currentSlide);
+  slides[currentSlide].classList.remove("active");
+
+  currentSlide++;
+
+  if (currentSlide < slides.length) {
+    slides[currentSlide].classList.add("active");
+    placePhotos(currentSlide);
+  }
+}
+
+// ---- HEARTS ----
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+
+  const parentWidth = window.innerWidth;
+  heart.style.left = Math.random() * parentWidth + "px";
+
+  const fallDuration = 3 + Math.random() * 3;
+  heart.style.animationDuration = fallDuration + "s";
+
+  const size = 12 + Math.random() * 24;
+  heart.style.fontSize = size + "px";
+
+  const rotate = Math.random() * 360;
+  heart.style.transform = `rotate(${rotate}deg)`;
+
+  heart.style.opacity = 0.4 + Math.random() * 0.6;
+
+  const sway = 10 + Math.random() * 20;
+  heart.style.setProperty("--sway", sway + "px");
+
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), fallDuration * 1000);
+}
+setInterval(createHeart, 300);
+
+// ---- YES / NO BUTTON ----
+function yesClicked() {
+  const teddy = document.getElementById("teddy");
+  if (teddy) teddy.style.display = "block";
+
+  if (typeof confetti === "function") {
+    confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+  }
+}
+
+const noBtn = document.getElementById("noBtn");
+noBtn.addEventListener("mouseenter", () => {
+  const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+  const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+});
+
+// ---- MUSIC ----
+function playMusic() {
+  const music = document.getElementById("bgMusic");
+  if (music && music.paused) music.play().catch(() => {});
+}
+
+// ---- PHOTO PLACEMENT ----
+function isOverlapping(x, y, w, h, others) {
+  for (let o of others) {
+    if (x < o.x + o.w && x + w > o.x && y < o.y + o.h && y + h > o.y) return true;
+  }
+  return false;
+}
+
+function placePhotos(slideIndex) {
+  const photos = slides[slideIndex].querySelectorAll(".photo");
+  const parent = slides[slideIndex].querySelector(".photos");
+  const placed = [];
+
+  photos.forEach(photo => {
+    function place() {
+      let w = photo.naturalWidth;
+      let h = photo.naturalHeight;
+
+      const maxWidth = 180;
+      if (w > maxWidth) {
+        const scale = maxWidth / w;
+        w *= scale;
+        h *= scale;
+      }
+
+      let x, y, attempts = 0;
+      do {
+        x = Math.random() * (parent.offsetWidth - w);
+        y = Math.random() * (parent.offsetHeight - h);
+        attempts++;
+        if (attempts > 100) break;
+      } while (isOverlapping(x, y, w, h, placed));
+
+      photo.style.width = w + "px";
+      photo.style.height = h + "px";
+      photo.style.left = x + "px";
+      photo.style.top = y + "px";
+
+      const rotate = Math.random() * 30 - 15;
+      photo.style.transform = `rotate(${rotate}deg) scale(1)`;
+
+      placed.push({ x, y, w, h });
+
+      photo.classList.add("show");
+      photo.classList.remove("hide");
+    }
+
+    if (photo.complete) place();
+    else photo.onload = place;
+  });
+}
+
+function hidePhotos(slideIndex) {
+  const photos = slides[slideIndex].querySelectorAll(".photo");
+  photos.forEach(photo => {
+    photo.classList.remove("show");
+    photo.classList.add("hide");
+  });
+}
+</script>
+
+</body>
+</html>
